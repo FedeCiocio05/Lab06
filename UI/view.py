@@ -64,8 +64,7 @@ class View:
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
         pulsante_mostra = ft.ElevatedButton("Mostra", on_click=self.controller.mostra_auto)
-        pulsante_cerca_auto = ft.ElevatedButton('Cerca') #ricorda on_click
-        #ricorda list view
+        pulsante_cerca_auto = ft.ElevatedButton('Cerca', on_click=self.controller.mostra_modelli)
         # TODO
 
         # --- LAYOUT ---
@@ -97,7 +96,9 @@ class View:
                     size=20,
                     text_align=ft.TextAlign.CENTER),
             ft.Row(spacing=5,
-                   controls=[self.input_modello_auto,pulsante_cerca_auto],)
+                   controls=[self.input_modello_auto,pulsante_cerca_auto],
+                   alignment=ft.MainAxisAlignment.START),
+            self.lista_auto_ricerca,
             # TODO
         )
 

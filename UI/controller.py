@@ -34,4 +34,12 @@ class Controller:
         for a in auto:
             self._view.lista_auto.controls.append(ft.Text(f'{a}'))
         self._view.update()
+
+    def mostra_modelli(self, e):
+        modello = self._view.input_modello_auto.value
+        auto_m = self._model.cerca_automobili_per_modello(modello)
+        self._view.lista_auto_ricerca.controls.clear()
+        for a in auto_m:
+            self._view.lista_auto_ricerca.controls.append(ft.Text(f'{a}'))
+        self._view.update()
     # TODO

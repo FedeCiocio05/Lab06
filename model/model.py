@@ -46,9 +46,6 @@ class Autonoleggio:
         cursor.close()
         cnx.close()
         return lista_automobili
-
-
-
         # TODO
 
     def cerca_automobili_per_modello(self, modello) -> list[Automobile] | None:
@@ -57,4 +54,15 @@ class Autonoleggio:
             :param modello: il modello dell'automobile
             :return: una lista con tutte le automobili di marca e modello indicato oppure None
         """
+        cnx = get_connection()
+        cursor = cnx.cursor()
+        query = f"""SELECT * FROM automobile WHERE modello = '{modello}'"""
+        cursor.execute(query)
+        lista_auto_modelli = []
+        for row in cursor:
+            aTemp = Automobile(row[0], row[1], row[2], row[3], row[4], row[5])
+            lista_auto_modelli.append(aTemp)
+        cursor.close()
+        cnx.close()
+        return lista_auto_modelli
         # TODO
