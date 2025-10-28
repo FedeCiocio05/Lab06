@@ -49,13 +49,13 @@ class View:
         # TextField per responsabile
         self.input_responsabile = ft.TextField(value=self.controller.get_responsabile(), label="Responsabile")
 
-        # ListView per mostrare la lista di auto aggiornata
+        # 1)ListView per mostrare la lista di auto aggiornata
         self.lista_auto = ft.ListView(expand=True, spacing=5, padding=10, auto_scroll=True)
 
         # TextField per ricerca auto per modello
         self.input_modello_auto = ft.TextField(label="Modello")
 
-        # ListView per mostrare il risultato della ricerca auto per modello
+        # 2)ListView per mostrare il risultato della ricerca auto per modello
         self.lista_auto_ricerca = ft.ListView(expand=True, spacing=5, padding=10, auto_scroll=True)
 
         # --- PULSANTI e TOGGLE associati a EVENTI ---
@@ -63,6 +63,9 @@ class View:
         pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
+        pulsante_mostra = ft.ElevatedButton("Mostra", on_click=self.controller.mostra_auto)
+        pulsante_cerca_auto = ft.ElevatedButton('Cerca') #ricorda on_click
+        #ricorda list view
         # TODO
 
         # --- LAYOUT ---
@@ -82,9 +85,19 @@ class View:
             ft.Divider(),
 
             # Sezione 3
+            ft.Row(spacing=5,
+                   controls=[ft.Text("Automobile", size=20), pulsante_mostra],
+                   alignment=ft.MainAxisAlignment.START),
+            self.lista_auto,
+            ft.Divider(),
             # TODO
 
             # Sezione 4
+            ft.Text("Cerca Automobile",
+                    size=20,
+                    text_align=ft.TextAlign.CENTER),
+            ft.Row(spacing=5,
+                   controls=[self.input_modello_auto,pulsante_cerca_auto],)
             # TODO
         )
 

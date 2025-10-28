@@ -35,6 +35,19 @@ class Autonoleggio:
             Funzione che legge tutte le automobili nel database
             :return: una lista con tutte le automobili presenti oppure None
         """
+        cnx = get_connection()
+        cursor = cnx.cursor()
+        query = """SELECT * FROM automobile"""
+        cursor.execute(query)
+        lista_automobili = []
+        for row in cursor:
+            aTemp = Automobile(row[0], row[1], row[2], row[3], row[4], row[5])
+            lista_automobili.append(aTemp)
+        cursor.close()
+        cnx.close()
+        return lista_automobili
+
+
 
         # TODO
 
