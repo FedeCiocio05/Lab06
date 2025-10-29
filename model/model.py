@@ -35,16 +35,21 @@ class Autonoleggio:
             Funzione che legge tutte le automobili nel database
             :return: una lista con tutte le automobili presenti oppure None
         """
-        cnx = get_connection()
-        cursor = cnx.cursor()
-        query = """SELECT * FROM automobile"""
-        cursor.execute(query)
-        lista_automobili = []
-        for row in cursor:
-            aTemp = Automobile(row[0], row[1], row[2], row[3], row[4], row[5])
-            lista_automobili.append(aTemp)
-        cursor.close()
-        cnx.close()
+        # la gestione dell'errore è generica
+        try:
+            cnx = get_connection()
+            cursor = cnx.cursor()
+            query = """SELECT * FROM automobile"""
+            cursor.execute(query)
+            lista_automobili = []
+            #leggo da database ogni auto e la inserisco in lista se conferma la query
+            for row in cursor:
+                aTemp = Automobile(row[0], row[1], row[2], row[3], row[4], row[5])
+                lista_automobili.append(aTemp)
+            cursor.close()
+            cnx.close()
+        except Exception as e:
+            print(e)
         return lista_automobili
         # TODO
 
@@ -54,15 +59,20 @@ class Autonoleggio:
             :param modello: il modello dell'automobile
             :return: una lista con tutte le automobili di marca e modello indicato oppure None
         """
-        cnx = get_connection()
-        cursor = cnx.cursor()
-        query = f"""SELECT * FROM automobile WHERE modello = '{modello}'"""
-        cursor.execute(query)
-        lista_auto_modelli = []
-        for row in cursor:
-            aTemp = Automobile(row[0], row[1], row[2], row[3], row[4], row[5])
-            lista_auto_modelli.append(aTemp)
-        cursor.close()
-        cnx.close()
+        #la gestione dell'errore è generica
+        try:
+            cnx = get_connection()
+            cursor = cnx.cursor()
+            query = f"""SELECT * FROM automobile WHERE modello = '{modello}'"""
+            cursor.execute(query)
+            lista_auto_modelli = []
+            # leggo da database ogni auto e la inserisco in lista se conferma la query
+            for row in cursor:
+                aTemp = Automobile(row[0], row[1], row[2], row[3], row[4], row[5])
+                lista_auto_modelli.append(aTemp)
+            cursor.close()
+            cnx.close()
+        except Exception as e:
+            print(e)
         return lista_auto_modelli
         # TODO

@@ -29,7 +29,13 @@ class Controller:
 
     # Altre Funzioni Event Handler
     def mostra_auto(self, e):
-        auto = self._model.get_automobili()
+        #try/except attorno alla chiamata al model per catturare errori DB
+        try:
+            auto = self._model.get_automobili()
+        except Exception as e:
+            self._view.alert.show_alert(f"❌ Errore durante la lettura delle automobili: {e}")
+            return
+        #pulizia lista
         self._view.lista_auto.controls.clear()
         for a in auto:
             self._view.lista_auto.controls.append(ft.Text(f'{a}'))
@@ -37,9 +43,22 @@ class Controller:
 
     def mostra_modelli(self, e):
         modello = self._view.input_modello_auto.value
-        auto_m = self._model.cerca_automobili_per_modello(modello)
+        #validazione input (modello non vuoto) prima di chiamare il Model
+        if not modello:
+            self._view.alert.show_alert("ℹ️ Inserisci un modello da cercare.")
+            return
+        #try/except per gestire eccezioni DB
+        try:
+            auto_m = self._model.cerca_automobili_per_modello(modello)
+        except Exception as e:
+            self._view.alert.show_alert(f"❌ Errore durante la ricerca: {e}")
+            return
+        # pulizia lista
         self._view.lista_auto_ricerca.controls.clear()
-        for a in auto_m:
-            self._view.lista_auto_ricerca.controls.append(ft.Text(f'{a}'))
+        if not auto_m:
+            self._view.lista_auto_ricerca.controls.append(ft.Text(f"Nessuna auto trovata per modello '{modello}'."))
+        else:
+            for a in auto_m:
+                self._view.lista_auto_ricerca.controls.append(ft.Text(f'{a}'))
         self._view.update()
     # TODO

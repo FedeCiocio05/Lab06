@@ -64,7 +64,9 @@ class View:
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
         pulsante_mostra = ft.ElevatedButton("Mostra", on_click=self.controller.mostra_auto)
+        #al click richiama funzione mostra_auto dal controller
         pulsante_cerca_auto = ft.ElevatedButton('Cerca', on_click=self.controller.mostra_modelli)
+        # al click richiama funzione mostra_modelli dal controller
         # TODO
 
         # --- LAYOUT ---
@@ -84,9 +86,11 @@ class View:
             ft.Divider(),
 
             # Sezione 3
+            #testo inserito direttamente nella riga per facilitare la spaziatura
             ft.Row(spacing=5,
                    controls=[ft.Text("Automobile", size=20), pulsante_mostra],
                    alignment=ft.MainAxisAlignment.START),
+            #lista di tutte le automobili
             self.lista_auto,
             ft.Divider(),
             # TODO
@@ -98,6 +102,7 @@ class View:
             ft.Row(spacing=5,
                    controls=[self.input_modello_auto,pulsante_cerca_auto],
                    alignment=ft.MainAxisAlignment.START),
+            #lista delle automobili con il modello inserito da input
             self.lista_auto_ricerca,
             # TODO
         )
